@@ -98,7 +98,7 @@ echo "  [ok] KWin config reloaded"
 
 # Wallpaper — pick closest resolution
 WALLPAPER_DIR="$SCRIPT_DIR/Wallpapers"
-SCREEN_RES="$(kscreen-doctor -o 2>/dev/null | grep -oP '\d+x\d+(?=@)' | head -1)"
+SCREEN_RES="$(kscreen-doctor -o 2>/dev/null | grep -oP '\d+x\d+(?=@)' | head -1 || true)"
 if [[ "$SCREEN_RES" == "3440x"* ]]; then
     WP="$WALLPAPER_DIR/3440x1440-1.25.png"
 elif [[ "$SCREEN_RES" == "2560x"* ]]; then
@@ -202,7 +202,7 @@ install_plasmoid_from_dir "MediaBar" "$WIDGET_TMP/MediaBar-2.3/package"
 
 # 9. Simple Separator — fetch fresh download URL from OpenDesktop at install time
 SEP_URL="$(curl -s 'https://api.opendesktop.org/ocs/v1/content/data/2137418?format=json' \
-    | python3 -c "import sys,json; d=json.load(sys.stdin)['data']; d=d[0] if isinstance(d,list) else d; print(d.get('downloadlink1',''))")"
+    | python3 -c "import sys,json; d=json.load(sys.stdin)['data']; d=d[0] if isinstance(d,list) else d; print(d.get('downloadlink1',''))" || true)"
 if [ -n "$SEP_URL" ]; then
     curl -sL -o "$WIDGET_TMP/separator.tar.xz" "$SEP_URL"
     tar -xf "$WIDGET_TMP/separator.tar.xz" -C "$WIDGET_TMP"
