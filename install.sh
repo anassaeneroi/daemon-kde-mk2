@@ -74,9 +74,14 @@ echo "  [ok] Bibata-Original-Classic cursor"
 echo "==> Installing TV Glitch KWin effect..."
 if ! pacman -Qs kwin6-effects-burn-my-windows &>/dev/null; then
     echo "  [!] kwin6-effects-burn-my-windows not installed — installing via yay..."
-    yay -S --noconfirm kwin6-effects-burn-my-windows
+    if yay -S --noconfirm kwin6-effects-burn-my-windows; then
+        echo "  [ok] TV Glitch (burn-my-windows)"
+    else
+        echo "  [!!] TV Glitch install failed — run manually: yay -S kwin6-effects-burn-my-windows"
+    fi
+else
+    echo "  [ok] TV Glitch (burn-my-windows)"
 fi
-echo "  [ok] TV Glitch (burn-my-windows)"
 
 # KWin settings
 kwriteconfig6 --file kwinrc --group Plugins --key kwin6_effect_tv_glitchEnabled true
