@@ -115,14 +115,14 @@ echo "  [ok] Wallpaper saved to $WALLPAPER_DEST/daemon-2.0-wallpaper.png"
 EXT_ID="{28127a6f-9a96-4256-b4d9-87b54b7ffc1c}"
 XPI="$SCRIPT_DIR/Firefox/Daemon2.0.xpi"
 
-FF_PROFILE="$(grep -A1 "^Default=" "$HOME/.config/mozilla/firefox/profiles.ini" 2>/dev/null | tail -1 | cut -d= -f2)"
+FF_PROFILE="$(grep -A1 "^Default=" "$HOME/.config/mozilla/firefox/profiles.ini" 2>/dev/null | tail -1 | cut -d= -f2 || true)"
 if [ -n "$FF_PROFILE" ] && [ -d "$HOME/.config/mozilla/firefox/$FF_PROFILE" ]; then
     mkdir -p "$HOME/.config/mozilla/firefox/$FF_PROFILE/extensions"
     cp "$XPI" "$HOME/.config/mozilla/firefox/$FF_PROFILE/extensions/$EXT_ID.xpi"
     echo "  [ok] Firefox theme"
 fi
 
-LW_DEFAULT="$(grep -A1 "^Default=" "$HOME/.librewolf/installs.ini" 2>/dev/null | tail -1 | cut -d= -f2)"
+LW_DEFAULT="$(grep -A1 "^Default=" "$HOME/.librewolf/installs.ini" 2>/dev/null | tail -1 | cut -d= -f2 || true)"
 if [ -n "$LW_DEFAULT" ] && [ -d "$HOME/.librewolf/$LW_DEFAULT" ]; then
     mkdir -p "$HOME/.librewolf/$LW_DEFAULT/extensions"
     cp "$XPI" "$HOME/.librewolf/$LW_DEFAULT/extensions/$EXT_ID.xpi"
