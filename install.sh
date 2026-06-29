@@ -225,6 +225,7 @@ echo "  [ok] Window decorations"
 kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle "kvantum"
 kvantummanager --set daemon-2.0 2>/dev/null && echo "  [ok] Kvantum → Daemon-2.0" || echo "  [!!] Kvantum theme set failed"
 
+kbuildsycoca6 --noincremental 2>/dev/null && echo "  [ok] KDE theme cache rebuilt"
 qdbus6 org.kde.KWin /KWin reconfigure 2>/dev/null || true
 dbus-send --session --dest=org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.refreshCurrentShell 2>/dev/null || true
 echo "  [ok] KWin + Plasmashell reloaded"
